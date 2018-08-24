@@ -1458,7 +1458,15 @@ void loop () {
 
     ITerm = (errorGyroI[axis]>>7)*conf.pid[axis].I8>>6;                        // 16 bits is ok here 16000/125 = 128 ; 128*250 = 32000
 
-    PTerm = mul(rc,conf.pid[axis].P8)>>6;
+	//针对固定翼，原本P参数既是摇杆量到舵量的系数，又是陀螺直接反馈的系数
+	//某些比较小的灵活的机型，例如Punjet，如果想获得更灵敏的操控，增加P参数又可能导致反馈过量机体震荡
+	//因此把两个量分离开来，摇杆到舵量的系数称为FF参数，在设置上使用的是D参数。
+	//同时，固定翼不再使用D项参与控制
+	#if defined(FIXEDWING)
+    PTerm = mul(rc,conf.pid[axis].D8)>>6;	//use D8 as FF gain
+	#else
+	PTerm = mul(rc,conf.pid[axis].P8)>>6;	
+	#endif
     
     if (f.ANGLE_MODE || f.HORIZON_MODE) { // axis relying on ACC
       // 50 degrees max inclination
@@ -1486,7 +1494,11 @@ void loop () {
  
     DTerm = mul(DTerm,dynD8[axis])>>5;        // 32 bits is needed for calculation
 
-    axisPID[axis] =  PTerm + ITerm - DTerm;
+	#if defined(FIXEDWING)
+	axisPID[axis] =  PTerm + ITerm;		//for FW we abandon D-term
+	#else
+	axisPID[axis] =  PTerm + ITerm - DTerm;
+	#endif
   }
 
   //YAW

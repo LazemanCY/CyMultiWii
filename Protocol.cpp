@@ -855,7 +855,7 @@ void run_LFP_telemetry(void)
 {
   /*
   flight mode bits:
-    7     6     5     4     3     2     1     0
+     7        6          5       4        3        2       1       0
    ARM  ANGLE  HORI  MAG   BARO  PASS  TBD   TBD 
   */
   
@@ -874,7 +874,7 @@ void run_LFP_telemetry(void)
   
   cmdMSP[CURRENTPORT] = MSP_LFP;
   
-  headSerialReply(18);//17 bytes in payload
+  headSerialReply(18);//18 bytes in payload
   
   serialize8(analog.vbat);    //battery 0.1V
   serialize16(analog.amperage);//current 0.1A

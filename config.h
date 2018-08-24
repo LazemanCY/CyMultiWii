@@ -31,7 +31,7 @@
 #define LFP_TELEMETRY
 #define LFP_TELEMETRY_PORT   0
 #define LFP_TELEMETRY_SPEED 19200
-#define LFP_PERIOD  500   //send data every 500ms
+#define LFP_PERIOD  300   //send data every 300ms, 3.3Hz 
 #define MSP_LFP     53    //add this MSP command
 
 
@@ -80,7 +80,7 @@
     //#define OCTOX8
     //#define OCTOFLATP
     //#define OCTOFLATX
-    //#define FLYING_WING
+    #define FLYING_WING
     //#define VTAIL4
     
     //#define AIRPLANE
@@ -95,7 +95,7 @@
     //VTOL type craft
     //#define VTOL_SLT  //seperate lift and thrust
     //#define VTOL_TS //Tail-Sitter, TBD
-    #define VTOL_TR //Till rotor
+    //#define VTOL_TR //Till rotor
 
   /****************************    Motor minthrottle    *******************************/
     /* Set the minimum throttle command sent to the ESC (Electronic Speed Controller)
