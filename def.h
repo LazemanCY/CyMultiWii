@@ -172,7 +172,7 @@
 /**************************************************************************************/
 #define SERVO_RATES      {30,30,100,100,100,100,100,100}
 
-#if defined (AIRPLANE) || defined(FLYING_WING) || defined(VTOL_SLT)
+#if defined (AIRPLANE) || defined(FLYING_WING) || defined(VTOL_SLT) || defined(VTOL_TR)
   #define FIXEDWING
 #endif
 
